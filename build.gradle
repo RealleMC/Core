@@ -1,0 +1,73 @@
+/*
+ * Copyright (c) 2021. This program is free software: you can redistribute
+ * it and/or modify it under the terms of the GNU General Public License as
+ * published by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT ANY
+ * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+ * PARTICULAR PURPOSE.  See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with
+ * this program.  If not, see <https://www.gnu.org/licenses/gpl-3.0.html>
+ *
+ *  Contact information:
+ *  Richard Simpson <magnum1997@gmail.com>
+ *  19084 Leaf Lane
+ *  Redding, CA 96003
+ *  USA
+ */
+
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+    id 'io.freefair.lombok' version '5.3.0'
+    id 'kr.entree.spigradle' version '2.2.3'
+}
+group = 'com.reallemc'
+version = '0.0.1'
+//artifact = 'RealleCore'
+sourceCompatibility = 1.11
+targetCompatibility = 1.11
+
+spigot {
+    name = 'RealleCore'
+    version = version
+    apiVersion = '1.16'
+    description = 'Library used for all Realle plugins'
+}
+
+// https://github.com/spigradle/spigradle#repositori
+repositories {
+    mavenCentral()
+    maven { url = "https://repo.aikar.co/content/groups/aikar/" }
+    maven { url = "https://hub.spigotmc.org/nexus/content/groups/public/" }
+    paper()
+    essentialsX()
+    jitpack()
+    mavenLocal()
+}
+
+
+jar {
+    enabled = true
+}
+
+// https://github.com/spigradle/spigradle#dependencies
+dependencies {
+    api 'com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT'
+    api 'com.github.Simplix-Softworks:SimplixStorage:3.2.2'
+    api 'co.aikar:acf-paper:0.5.0-SNAPSHOT'
+}
+
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = 'com.reallemc'
+            artifactId = 'core'
+            version = '0.0.1'
+            from components.java
+        }
+    }
+}
