@@ -27,11 +27,15 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.logging.Logger;
 
 public class Common extends JavaPlugin {
 
+    private static Logger logger = Bukkit.getLogger();
     @SuppressWarnings("deprecation")
     public static Optional<UUID> fetchPlayerByName(String name) {
         UUID uid;
@@ -45,5 +49,44 @@ public class Common extends JavaPlugin {
     public static void tell(Player player,String message){
         player.sendMessage(Component.text(message));
     }
-//    public static void log()
+    // ------------------------------------------------------------------------------------------------------------
+    // Colorizing messages
+    // ------------------------------------------------------------------------------------------------------------
+
+    /**
+     * Replaces & colors for every string in the list
+     * A new list is created only containing non-null list values
+     *
+     * @param list
+     * @return
+     */
+    public static List<String> colorize(final List<String> list) {
+        final List<String> copy = new ArrayList<>();
+        copy.addAll(list);
+
+        for (int i = 0; i < copy.size(); i++) {
+            final String message = copy.get(i);
+
+            if (message != null)
+                copy.set(i, colorize(message));
+        }
+
+        return copy;
+    }
+
+    // ------------------------------------------------------------------------------------------------------------
+    // Logging and error handling
+    // ------------------------------------------------------------------------------------------------------------
+    /**
+     * Logs a bunch of messages to the console, & colors are supported
+     *
+     * @param messages
+     */
+    public static void log(final String... messages) {
+        log(messages);
+    }
+    public static void log (final String message) {
+    logger.info(message);
+    }
+
 }

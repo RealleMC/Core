@@ -27,8 +27,8 @@ plugins {
 group = 'com.reallemc'
 version = '0.0.1'
 //artifact = 'RealleCore'
-sourceCompatibility = 1.11
-targetCompatibility = 1.11
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 spigot {
     name = 'RealleCore'
@@ -39,13 +39,13 @@ spigot {
 
 // https://github.com/spigradle/spigradle#repositori
 repositories {
-    mavenCentral()
-    maven { url = "https://repo.aikar.co/content/groups/aikar/" }
-    maven { url = "https://hub.spigotmc.org/nexus/content/groups/public/" }
+//    mavenCentral()
+//    maven { url = "https://repo.aikar.co/content/groups/aikar/" }
+//    maven { url = "https://hub.spigotmc.org/nexus/content/groups/public/" }
     paper()
-    essentialsX()
+//    essentialsX()
     jitpack()
-    mavenLocal()
+//    mavenLocal()
 }
 
 
@@ -55,9 +55,7 @@ jar {
 
 // https://github.com/spigradle/spigradle#dependencies
 dependencies {
-    api 'com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT'
-    api 'com.github.Simplix-Softworks:SimplixStorage:3.2.2'
-    api 'co.aikar:acf-paper:0.5.0-SNAPSHOT'
+    api('com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT')
 }
 
 
