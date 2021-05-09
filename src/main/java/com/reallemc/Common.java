@@ -20,10 +20,12 @@
 
 package com.reallemc;
 
-import net.kyori.adventure.text.Component;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -43,11 +45,39 @@ public class Common extends JavaPlugin {
         return Optional.of(p.getUniqueId());
 
     }
-    public static String colorize(String string){
-        return ChatColor.translateAlternateColorCodes('&',string);
+    public static void sendTitle(Player pl, String title, String subtitle) {
+        pl.sendTitle(colorize(title), colorize(subtitle), 20, 3 * 20, 10);
     }
-    public static void tell(Player player,String message){
-        player.sendMessage(Component.text(message));
+
+    public static void sendBar(Player pl, String title) {
+        try {
+            pl.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(colorize(title)));
+
+        } catch (final Throwable t) {
+            tell(pl, title);
+        }
+    }
+
+//    public static void log(String messages) {
+//        tell(Bukkit.getConsoleSender(), "[" + getInstance().getName() + "] " + messages);
+//    }
+
+    public static void tell(CommandSender toWhom, Iterable<String> messages) {
+        for (final String message : messages)
+            tell(toWhom, message);
+    }
+
+    public static void tell(CommandSender toWhom, String... messages) {
+        for (final String message : messages)
+            tell(toWhom, message);
+    }
+
+    public static void tell(CommandSender toWhom, String message) {
+        toWhom.sendMessage(colorize(message));
+    }
+
+    public static String colorize(String message) {
+        return ChatColor.translateAlternateColorCodes('&', message);
     }
     // ------------------------------------------------------------------------------------------------------------
     // Colorizing messages

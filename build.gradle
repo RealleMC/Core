@@ -25,7 +25,7 @@ plugins {
     id 'kr.entree.spigradle' version '2.2.3'
 }
 group = 'com.reallemc'
-version = '0.0.1'
+version = '0.1.0'
 //artifact = 'RealleCore'
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
