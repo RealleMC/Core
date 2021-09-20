@@ -20,6 +20,7 @@
 
 package com.reallemc;
 
+import kr.entree.spigradle.annotations.SpigotPlugin;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
@@ -35,9 +36,11 @@ import java.util.Optional;
 import java.util.UUID;
 import java.util.logging.Logger;
 
+@SpigotPlugin
 public class Common extends JavaPlugin {
 
     private static Logger logger = Bukkit.getLogger();
+
     @SuppressWarnings("deprecation")
     public static Optional<UUID> fetchPlayerByName(String name) {
         UUID uid;
@@ -45,6 +48,7 @@ public class Common extends JavaPlugin {
         return Optional.of(p.getUniqueId());
 
     }
+
     public static void sendTitle(Player pl, String title, String subtitle) {
         pl.sendTitle(colorize(title), colorize(subtitle), 20, 3 * 20, 10);
     }
@@ -107,6 +111,7 @@ public class Common extends JavaPlugin {
     // ------------------------------------------------------------------------------------------------------------
     // Logging and error handling
     // ------------------------------------------------------------------------------------------------------------
+
     /**
      * Logs a bunch of messages to the console, & colors are supported
      *
@@ -115,8 +120,9 @@ public class Common extends JavaPlugin {
     public static void log(final String... messages) {
         log(messages);
     }
-    public static void log (final String message) {
-    logger.info(message);
+
+    public static void log(final String message) {
+        logger.info(message);
     }
 
 }
