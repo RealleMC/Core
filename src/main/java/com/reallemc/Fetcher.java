@@ -20,26 +20,22 @@
 
 package com.reallemc;
 
-import org.bukkit.block.CommandBlock;
-import org.bukkit.command.CommandSender;
-import org.bukkit.command.ConsoleCommandSender;
-import org.bukkit.entity.Player;
+import kr.entree.spigradle.annotations.SpigotPlugin;
+import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
+import org.bukkit.plugin.java.JavaPlugin;
 
-public class CheckSender {
+import java.util.Optional;
+import java.util.UUID;
 
-    public static boolean isPlayer(CommandSender sender) {
-        return (sender instanceof Player);
+@SpigotPlugin
+public class Fetcher extends JavaPlugin {
+
+    @SuppressWarnings("deprecation")
+    public static Optional<UUID> getUuidFromName(String user) {
+        OfflinePlayer p = Bukkit.getOfflinePlayer(user);
+        if (p.hasPlayedBefore())
+            return Optional.of(p.getUniqueId());
+        return Optional.empty();
     }
-
-    public static boolean isConsole(CommandSender sender) {
-        return (sender instanceof ConsoleCommandSender);
-    }
-
-    public static boolean isCommand(CommandSender sender) {
-        return (sender instanceof CommandBlock);
-    }
-
-
 }
-
-
