@@ -17,48 +17,48 @@
  *  Redding, CA 96003
  *  USA
  */
+import com.github.jengelman.gradle.plugins.shadow.tasks.ConfigureShadowRelocation
 
 plugins {
     id 'java-library'
     id 'maven-publish'
     id 'io.freefair.lombok' version '5.3.0'
     id 'kr.entree.spigradle' version '2.2.3'
+    id 'com.github.johnrengelman.shadow' version '5.2.0'
 }
 group = 'com.reallemc'
 version = '0.1.0'
 //artifact = 'RealleCore'
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = JavaVersion.VERSION_16
+targetCompatibility = JavaVersion.VERSION_16
 
+
+
+repositories {
+//    mavenCentral()
+    maven { url = "https://repo.aikar.co/content/groups/aikar/" }
+    maven { url = "https://papermc.io/repo/repository/maven-public/" }
+    maven { url = "https://hub.spigotmc.org/nexus/content/groups/public/" }
+    jitpack()
+}
+dependencies {
+    api('com.github.MilkBowl:VaultAPI:1.7')
+    api('io.papermc.paper:paper-api:1.17.1-R0.1-SNAPSHOT')
+    api('com.github.EssentialsX.Essentials:1_8Provider:2.19.0')
+
+    implementation('co.aikar:acf-paper:0.5.0-SNAPSHOT')
+    implementation('com.github.simplix-softworks:simplixstorage:3.2.3')
+
+}
 spigot {
     name = 'RealleCore'
     version = version
     apiVersion = '1.16'
     description = 'Library used for all Realle plugins'
 }
-
-// https://github.com/spigradle/spigradle#repositori
-repositories {
-//    mavenCentral()
-//    maven { url = "https://repo.aikar.co/content/groups/aikar/" }
-//    maven { url = "https://hub.spigotmc.org/nexus/content/groups/public/" }
-    paper()
-//    essentialsX()
-    jitpack()
-//    mavenLocal()
-}
-
-
 jar {
     enabled = true
 }
-
-// https://github.com/spigradle/spigradle#dependencies
-dependencies {
-    api('com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT')
-}
-
-
 publishing {
     publications {
         maven(MavenPublication) {
@@ -68,4 +68,9 @@ publishing {
             from components.java
         }
     }
+}
+compileJava {
+    options.compilerArgs += ["-parameters"]
+    options.fork = true
+    options.forkOptions.executable = 'javac'
 }
