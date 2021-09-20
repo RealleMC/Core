@@ -39,9 +39,9 @@ repositories {
     jitpack()
 }
 dependencies {
-    api('com.github.MilkBowl:VaultAPI:1.7')
-    api('io.papermc.paper:paper-api:1.17.1-R0.1-SNAPSHOT')
-    api('com.github.EssentialsX.Essentials:1_8Provider:2.19.0')
+//    api('com.github.MilkBowl:VaultAPI:1.7')
+    compileOnly('io.papermc.paper:paper-api:1.17.1-R0.1-SNAPSHOT')
+//    api('com.github.EssentialsX.Essentials:1_8Provider:2.19.0')
 
     api('co.aikar:acf-paper:0.5.0-SNAPSHOT')
     api('com.github.simplix-softworks:simplixstorage:3.2.3')
@@ -57,8 +57,6 @@ spigot {
 jar {
     enabled = true
 }
-compileJava {
-    options.compilerArgs += ["-parameters"]
-    options.fork = true
-    options.forkOptions.executable = 'javac'
+shadowJar {
+    minimize()
 }
