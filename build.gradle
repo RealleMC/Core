@@ -28,7 +28,6 @@ plugins {
 }
 group = 'com.reallemc'
 version = '0.1.0'
-//artifact = 'RealleCore'
 sourceCompatibility = JavaVersion.VERSION_16
 targetCompatibility = JavaVersion.VERSION_16
 
@@ -52,6 +51,7 @@ dependencies {
 }
 spigot {
     name = 'RealleCore'
+    author = 'Magnum1997'
     version = version
     apiVersion = '1.16'
     description = 'Library used for all Realle plugins'
