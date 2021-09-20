@@ -17,6 +17,7 @@
  *  Redding, CA 96003
  *  USA
  */
+//file:noinspection SpellCheckingInspection
 import com.github.jengelman.gradle.plugins.shadow.tasks.ConfigureShadowRelocation
 
 plugins {
@@ -26,26 +27,31 @@ plugins {
     id 'kr.entree.spigradle' version '2.2.4'
     id 'com.github.johnrengelman.shadow' version '7.0.0'
 }
+
 group = 'com.reallemc'
 version = '0.1.0'
 sourceCompatibility = JavaVersion.VERSION_16
 targetCompatibility = JavaVersion.VERSION_16
 
-
-
 repositories {
     maven { url = "https://repo.aikar.co/content/groups/aikar/" }
     maven { url = "https://papermc.io/repo/repository/maven-public/" }
+    maven { url = 'https://bitbucket.org/kangarko/libraries/raw/master'}
     maven { url = "https://hub.spigotmc.org/nexus/content/groups/public/" }
     jitpack()
 }
 dependencies {
 //    api('com.github.MilkBowl:VaultAPI:1.7')
-    compileOnly('io.papermc.paper:paper-api:1.17.1-R0.1-SNAPSHOT')
 //    api('com.github.EssentialsX.Essentials:1_8Provider:2.19.0')
-
     api('co.aikar:acf-paper:0.5.0-SNAPSHOT')
+    api('com.github.kangarko:Foundation:5.11.1')
+    api('org.mineacademy.plugin:Multiverse-Core'){
+        version {
+            strictly '4.1.1-SNAPSHOT-787'
+        }
+    }
     api('com.github.simplix-softworks:simplixstorage:3.2.3')
+    compileOnly('io.papermc.paper:paper-api:1.17.1-R0.1-SNAPSHOT')
 
 }
 spigot {
@@ -58,12 +64,31 @@ spigot {
 jar {
     enabled = true
 }
+task relocateShadowJar(type: ConfigureShadowRelocation) {
+    target = tasks.shadowJar
+    prefix = "com.reallemc" // Default value is "shadow"
+}
+
+tasks.shadowJar.dependsOn tasks.relocateShadowJar
+task sourcesJar(type: Jar) {
+    from sourceSets.main.allJava
+    archiveClassifier.set("sources")
+}
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    archiveClassifier.set("javadoc")
+    from javadoc.destinationDir
+}
+shadowJar {
+    //noinspection GrDeprecatedAPIUsage
+//    classifier = null // remove -all from end of jar
+    minimize()
+}
 publishing {
     publications {
-        maven(MavenPublication) {
-            groupId = 'com.reallemc'
-            artifactId = 'core'
-            version = '0.1.0'
+        RealleCore(MavenPublication) {
+//            groupId = 'com.reallemc'
+//            artifactId = 'core'
+//            version = '0.1.0'
             from components.java
         }
     }
