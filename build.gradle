@@ -28,7 +28,7 @@ plugins {
 }
 
 group = 'com.reallemc'
-version = '0.1.0'
+version = '0.1.1'
 sourceCompatibility = JavaVersion.VERSION_16
 targetCompatibility = JavaVersion.VERSION_16
 
@@ -88,7 +88,7 @@ publishing {
         RealleCore(MavenPublication) {
             groupId = 'com.reallemc'
             artifactId = 'core'
-            version = '0.1.0'
+            version = '0.1.1'
             from components.java
         }
     }
