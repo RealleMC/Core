@@ -23,18 +23,15 @@ package com.reallemc;
 import kr.entree.spigradle.annotations.SpigotPlugin;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
-import org.mineacademy.fo.plugin.SimplePlugin;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Optional;
 import java.util.UUID;
 
 @SpigotPlugin
-public class Fetcher extends SimplePlugin {
+public class Fetcher extends JavaPlugin {
 
-    @Override
-    protected void onPluginStart() {
 
-    }
 
     @SuppressWarnings("deprecation")
     public static Optional<UUID> getUuidFromName(String user) {
