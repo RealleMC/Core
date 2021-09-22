@@ -122,3 +122,6 @@ gradle-app.setting
 
 # End of https://www.gitignore.io/api/maven,gradle,intellij+all
 debug/*
+.gitsecret/keys/random_seed
+!*.secret
+.secrets
