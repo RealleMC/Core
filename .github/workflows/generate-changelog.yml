@@ -1,25 +1,30 @@
-name: Changelog
+name: Create Release
+
 on:
-  pull_request:
-    types: [closed]
-  release:
-    types: [published]
-  issues:
-    types: [closed, edited]
+  push:
+    tags:
+      - '*'
 
 jobs:
-  generate_changelog:
+  create-release:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v2
-      - name: Conventional Changelog Action
-        uses: TriPSs/conventional-changelog-action@v2.4.0
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Create changelog text
+        id: changelog
+        uses: loopwerk/tag-changelog@v1
         with:
-          # Github token
-          github-token: ${{ secrets.github_token }}
-          # Commit message to use
-          git-message: Update changelog {version}
-          # Number of releases to preserve in changelog
-          release-count: 5 # optional, default is 5
-          # The path to the package.json to use
-          package-json: ./package.json
+          token: ${{ secrets.GITHUB_TOKEN }}
+          exclude_types: other,doc,chore
+
+      - name: Create release
+        uses: actions/create-release@latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          body: ${{ steps.changelog.outputs.changes }}
