@@ -34,16 +34,16 @@ targetCompatibility = JavaVersion.VERSION_16
 repositories {
     maven { url = "https://repo.aikar.co/content/groups/aikar/" }
     maven { url = "https://papermc.io/repo/repository/maven-public/" }
-    maven { url = 'https://bitbucket.org/kangarko/libraries/raw/master'}
+    maven { url = 'https://bitbucket.org/kangarko/libraries/raw/master' }
     maven { url = "https://hub.spigotmc.org/nexus/content/groups/public/" }
-    jitpack()
+    maven { url = "https://jitpack.io/" }
 }
 dependencies {
 //    api('com.github.MilkBowl:VaultAPI:1.7')
 //    api('com.github.EssentialsX.Essentials:1_8Provider:2.19.0')
     api('co.aikar:acf-paper:0.5.0-SNAPSHOT')
     api('com.github.kangarko:Foundation:5.11.1')
-    api('org.mineacademy.plugin:Multiverse-Core'){
+    api('org.mineacademy.plugin:Multiverse-Core') {
         version {
             strictly '4.1.1-SNAPSHOT-787'
         }
